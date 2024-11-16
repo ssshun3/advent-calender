@@ -1,0 +1,50 @@
+body {
+  background-color: #fffaf0;
+}
+
+.content-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: #b22222;
+}
+
+.date,
+.author {
+  text-align: center;
+  font-size: 18px;
+  color: #696969;
+}
+
+.message {
+  margin-top: 30px;
+}
+
+.message h2 {
+  color: #b22222;
+  border-bottom: 2px solid #b22222;
+}
+
+.message p {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.navigation {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.navigation a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: #4682b4;
+}
+
+.navigation a:hover {
+  text-decoration: underline;
+}
