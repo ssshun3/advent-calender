@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
       event.preventDefault();
       const day = this.getAttribute("data-day");
       loadDailyContent(day);
+      MicroModal.close("calendar-modal");
     });
   });
 
