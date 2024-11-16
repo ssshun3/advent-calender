@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="./style/main.css" />
   </head>
   <body>
-    <header>
-      <h1>🎄 アドベントカレンダー 2024 🎄</h1>
-      <p>毎日、新しいページが登場！クリックして楽しもう。</p>
-    </header>
+    <div class="top-header">
+      <div class="top-header-title">🎄 アドベントカレンダー 2024 🎄</div>
+      <div>毎日、新しいページが登場！クリックして楽しもう。</div>
+    </div>
     <main>
       <div class="top-modal-button-wrapper">
         <button
@@ -31,12 +31,12 @@
         <div class="top-modal-overlay" data-micromodal-close>
           <div class="top-modal-container" role="dialog" aria-modal="true">
             <div>
-              <header class="top-modal-header">
+              <div class="top-modal-header">
                 <h2 class="top-modal-title">カレンダー</h2>
                 <button class="top-modal-close" data-micromodal-close></button>
-              </header>
+              </div>
               <div class="top-modal-content">
-                <section class="top-calendar">
+                <div class="top-calendar">
                   <div class="top-calendar-grid">
                     <a href="#" class="top-day" data-day="1">1</a>
                     <a href="#" class="top-day" data-day="2">2</a>
@@ -63,7 +63,7 @@
                     <a href="#" class="top-day" data-day="23">23</a>
                     <a href="#" class="top-day" data-day="24">24</a>
                   </div>
-                </section>
+                </div>
               </div>
             </div>
           </div>

@@ -6,7 +6,7 @@ MicroModal.init({
 
 document.addEventListener("DOMContentLoaded", function () {
   // 全てのカレンダーリンクにクリックイベントを追加
-  const dayLinks = document.querySelectorAll(".calendar-grid .day");
+  const dayLinks = document.querySelectorAll(".top-calendar-grid .top-day");
   dayLinks.forEach(function (link) {
     link.addEventListener("click", function (event) {
       event.preventDefault();
