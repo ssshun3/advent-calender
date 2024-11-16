@@ -23,7 +23,7 @@ main {
 section {
   margin-top: 40px;
 }
-.content-wrapper {
+.top-content-wrapper {
   background-color: #ffffff;
   padding: 20px;
   margin-bottom: 20px;
@@ -31,7 +31,7 @@ section {
   border-radius: 4px;
 }
 
-.calendar-grid {
+.top-calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 10px;
@@ -39,7 +39,7 @@ section {
   margin: 0 auto;
 }
 
-.day {
+.top-day {
   display: block;
   background-color: #ffffff;
   color: #2f4f4f;
@@ -50,14 +50,14 @@ section {
   border-radius: 4px;
 }
 
-.day:hover {
+.top-day:hover {
   background-color: #e0ffff;
 }
 
 * {
   box-sizing: border-box;
 }
-.modal-button-wrapper {
+.top-modal-button-wrapper {
   display: flex;
   justify-content: flex-end;
   margin-bottom: 20px;
@@ -66,7 +66,7 @@ section {
   Basic Modal Styles
 \**************************/
 
-.modal__overlay {
+.top-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -78,7 +78,7 @@ section {
   align-items: center;
 }
 
-.modal__container {
+.top-modal-container {
   background-color: #fff;
   padding: 30px;
   max-width: 800px;
@@ -87,20 +87,13 @@ section {
   box-sizing: border-box;
 }
 
-@media screen and (max-width: 480px) {
-  .modal__container {
-    max-height: 90vh;
-    max-width: 300px;
-  }
-}
-
-.modal__header {
+.top-modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.modal__title {
+.top-modal-title {
   margin-top: 0;
   margin-bottom: 0;
   font-weight: 600;
@@ -110,28 +103,28 @@ section {
   box-sizing: border-box;
 }
 
-.modal__close {
+.top-modal-close {
   background: transparent;
   border: 0;
 }
 
-.modal__header .modal__close:before {
+.top-modal-header .top-modal-close:before {
   content: "\2715";
   color: #ffffff;
   font-size: 1.5rem;
 }
-.modal__header .modal__close:hover {
+.top-modal-header .top-modal-close:hover {
   cursor: pointer;
 }
 
-.modal__content {
+.top-modal-content {
   margin-top: 2rem;
   margin-bottom: 2rem;
   line-height: 1.5;
 }
 
-.modal__btn {
-  padding: 20px;
+.top-modal-btn {
+  padding: 8px;
   cursor: pointer;
 }
 
@@ -174,31 +167,31 @@ section {
   }
 }
 
-.micromodal-slide {
+.top-micromodal-slide {
   display: none;
 }
 
-.micromodal-slide.is-open {
+.top-micromodal-slide.is-open {
   display: block;
 }
 
-.micromodal-slide[aria-hidden="false"] .modal__overlay {
+.top-micromodal-slide[aria-hidden="false"] .top-modal-overlay {
   animation: mmfadeIn 0.3s cubic-bezier(0, 0, 0.2, 1);
 }
 
-.micromodal-slide[aria-hidden="false"] .modal__container {
+.top-micromodal-slide[aria-hidden="false"] .top-modal-container {
   animation: mmslideIn 0.3s cubic-bezier(0, 0, 0.2, 1);
 }
 
-.micromodal-slide[aria-hidden="true"] .modal__overlay {
+.top-micromodal-slide[aria-hidden="true"] .top-modal-overlay {
   animation: mmfadeOut 0.3s cubic-bezier(0, 0, 0.2, 1);
 }
 
-.micromodal-slide[aria-hidden="true"] .modal__container {
+.top-micromodal-slide[aria-hidden="true"] .top-modal-container {
   animation: mmslideOut 0.3s cubic-bezier(0, 0, 0.2, 1);
 }
 
-.micromodal-slide .modal__container,
-.micromodal-slide .modal__overlay {
+.top-micromodal-slide .top-modal-container,
+.top-micromodal-slide .top-modal-overlay {
   will-change: transform;
 }
