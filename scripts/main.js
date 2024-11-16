@@ -1,3 +1,9 @@
+MicroModal.init({
+  awaitCloseAnimation: true,
+  awaitOpenAnimation: true,
+  disableScroll: true,
+});
+
 document.addEventListener("DOMContentLoaded", function () {
   // 全てのカレンダーリンクにクリックイベントを追加
   const dayLinks = document.querySelectorAll(".calendar-grid .day");

@@ -12,45 +12,65 @@
       <p>毎日、新しいページが登場！クリックして楽しもう。</p>
     </header>
     <main>
+      <div class="modal-button-wrapper">
+        <button
+          class="modal__btn"
+          data-micromodal-trigger="calendar-modal"
+          role="button"
+        >
+          モーダルを開く
+        </button>
+      </div>
       <div class="content-wrapper">
         <h2>🎁 今日の記事 🎁</h2>
         <div id="daily-content"></div>
       </div>
-      <section class="calendar">
-        <!-- カレンダーリンクを表示 -->
-        <div class="calendar-grid">
-          <!-- 1日目から24日目までのリンクを作成 -->
-          <a href="#" class="day" data-day="1">1</a>
-          <a href="#" class="day" data-day="2">2</a>
-          <a href="#" class="day" data-day="3">3</a>
-          <a href="#" class="day" data-day="4">4</a>
-          <a href="#" class="day" data-day="5">5</a>
-          <a href="#" class="day" data-day="6">6</a>
-          <a href="#" class="day" data-day="7">7</a>
-          <a href="#" class="day" data-day="8">8</a>
-          <a href="#" class="day" data-day="9">9</a>
-          <a href="#" class="day" data-day="10">10</a>
-          <a href="#" class="day" data-day="11">11</a>
-          <a href="#" class="day" data-day="12">12</a>
-          <a href="#" class="day" data-day="13">13</a>
-          <a href="#" class="day" data-day="14">14</a>
-          <a href="#" class="day" data-day="15">15</a>
-          <a href="#" class="day" data-day="16">16</a>
-          <a href="#" class="day" data-day="17">17</a>
-          <a href="#" class="day" data-day="18">18</a>
-          <a href="#" class="day" data-day="19">19</a>
-          <a href="#" class="day" data-day="20">20</a>
-          <a href="#" class="day" data-day="21">21</a>
-          <a href="#" class="day" data-day="22">22</a>
-          <a href="#" class="day" data-day="23">23</a>
-          <a href="#" class="day" data-day="24">24</a>
+
+      <!-- ここからモーダルエリアです。 -->
+      <div class="micromodal-slide" id="calendar-modal">
+        <div class="modal__overlay" data-micromodal-close>
+          <div class="modal__container" role="dialog" aria-modal="true">
+            <div>
+              <header class="modal__header">
+                <h2 class="modal__title">カレンダー</h2>
+                <button class="modal__close" data-micromodal-close></button>
+              </header>
+              <div class="modal__content">
+                <section class="calendar">
+                  <div class="calendar-grid">
+                    <a href="#" class="day" data-day="1">1</a>
+                    <a href="#" class="day" data-day="2">2</a>
+                    <a href="#" class="day" data-day="3">3</a>
+                    <a href="#" class="day" data-day="4">4</a>
+                    <a href="#" class="day" data-day="5">5</a>
+                    <a href="#" class="day" data-day="6">6</a>
+                    <a href="#" class="day" data-day="7">7</a>
+                    <a href="#" class="day" data-day="8">8</a>
+                    <a href="#" class="day" data-day="9">9</a>
+                    <a href="#" class="day" data-day="10">10</a>
+                    <a href="#" class="day" data-day="11">11</a>
+                    <a href="#" class="day" data-day="12">12</a>
+                    <a href="#" class="day" data-day="13">13</a>
+                    <a href="#" class="day" data-day="14">14</a>
+                    <a href="#" class="day" data-day="15">15</a>
+                    <a href="#" class="day" data-day="16">16</a>
+                    <a href="#" class="day" data-day="17">17</a>
+                    <a href="#" class="day" data-day="18">18</a>
+                    <a href="#" class="day" data-day="19">19</a>
+                    <a href="#" class="day" data-day="20">20</a>
+                    <a href="#" class="day" data-day="21">21</a>
+                    <a href="#" class="day" data-day="22">22</a>
+                    <a href="#" class="day" data-day="23">23</a>
+                    <a href="#" class="day" data-day="24">24</a>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
         </div>
-      </section>
+      </div>
     </main>
-
-    <footer></footer>
-
-    <!-- JavaScriptファイルの読み込み -->
+    <script src="https://cdn.jsdelivr.net/npm/micromodal/dist/micromodal.min.js"></script>
     <script src="scripts/main.js"></script>
   </body>
 </html>
