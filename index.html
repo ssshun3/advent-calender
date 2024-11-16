@@ -1,52 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Advent Calendar 2024</title>
-    <link rel="stylesheet" href="styles/main.css" />
+    <title>アドベントカレンダー 2024</title>
+    <link rel="stylesheet" href="./style/main.css" />
   </head>
   <body>
     <header>
-      <h1>Advent Calendar 2024</h1>
+      <h1>🎄 アドベントカレンダー 2024 🎄</h1>
       <p>毎日、新しいページが登場！クリックして楽しもう。</p>
     </header>
-
     <main>
+      <div class="content-wrapper">
+        <h2>🎁 今日の記事 🎁</h2>
+        <div id="daily-content"></div>
+      </div>
       <section class="calendar">
         <!-- カレンダーリンクを表示 -->
         <div class="calendar-grid">
           <!-- 1日目から24日目までのリンクを作成 -->
-          <a href="day1/index.html" class="day">1</a>
-          <a href="day2/index.html" class="day">2</a>
-          <a href="day3/index.html" class="day">3</a>
-          <a href="day4/index.html" class="day">4</a>
-          <a href="day5/index.html" class="day">5</a>
-          <a href="day6/index.html" class="day">6</a>
-          <a href="day7/index.html" class="day">7</a>
-          <a href="day8/index.html" class="day">8</a>
-          <a href="day9/index.html" class="day">9</a>
-          <a href="day10/index.html" class="day">10</a>
-          <a href="day11/index.html" class="day">11</a>
-          <a href="day12/index.html" class="day">12</a>
-          <a href="day13/index.html" class="day">13</a>
-          <a href="day14/index.html" class="day">14</a>
-          <a href="day15/index.html" class="day">15</a>
-          <a href="day16/index.html" class="day">16</a>
-          <a href="day17/index.html" class="day">17</a>
-          <a href="day18/index.html" class="day">18</a>
-          <a href="day19/index.html" class="day">19</a>
-          <a href="day20/index.html" class="day">20</a>
-          <a href="day21/index.html" class="day">21</a>
-          <a href="day22/index.html" class="day">22</a>
-          <a href="day23/index.html" class="day">23</a>
-          <a href="day24/index.html" class="day">24</a>
+          <a href="#" class="day" data-day="1">1</a>
+          <a href="#" class="day" data-day="2">2</a>
+          <a href="#" class="day" data-day="3">3</a>
+          <a href="#" class="day" data-day="4">4</a>
+          <a href="#" class="day" data-day="5">5</a>
+          <a href="#" class="day" data-day="6">6</a>
+          <a href="#" class="day" data-day="7">7</a>
+          <a href="#" class="day" data-day="8">8</a>
+          <a href="#" class="day" data-day="9">9</a>
+          <a href="#" class="day" data-day="10">10</a>
+          <a href="#" class="day" data-day="11">11</a>
+          <a href="#" class="day" data-day="12">12</a>
+          <a href="#" class="day" data-day="13">13</a>
+          <a href="#" class="day" data-day="14">14</a>
+          <a href="#" class="day" data-day="15">15</a>
+          <a href="#" class="day" data-day="16">16</a>
+          <a href="#" class="day" data-day="17">17</a>
+          <a href="#" class="day" data-day="18">18</a>
+          <a href="#" class="day" data-day="19">19</a>
+          <a href="#" class="day" data-day="20">20</a>
+          <a href="#" class="day" data-day="21">21</a>
+          <a href="#" class="day" data-day="22">22</a>
+          <a href="#" class="day" data-day="23">23</a>
+          <a href="#" class="day" data-day="24">24</a>
         </div>
       </section>
     </main>
 
-    <footer>
-      <p>&copy; 2024 Advent Calendar Project. All Rights Reserved.</p>
-    </footer>
+    <footer></footer>
+
+    <!-- JavaScriptファイルの読み込み -->
+    <script src="scripts/main.js"></script>
   </body>
 </html>
