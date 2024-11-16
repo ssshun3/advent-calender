@@ -3,107 +3,169 @@ MicroModal.init({
   awaitOpenAnimation: true,
   disableScroll: true,
 });
+class IframeManager {
+  constructor(iframe) {
+    this.iframe = iframe;
+    this.setupResizeObserver();
+    this.setupMessageListener();
+  }
+  setupResizeObserver() {
+    if (this.iframe.contentDocument) {
+      this.resizeObserver = new ResizeObserver((entries) => {
+        for (const entry of entries) {
+          // スクロール高さを取得して設定
+          const body = this.iframe.contentDocument.body;
+          const html = this.iframe.contentDocument.documentElement;
+          const height = Math.max(
+            body.scrollHeight,
+            body.offsetHeight,
+            html.clientHeight,
+            html.scrollHeight,
+            html.offsetHeight
+          );
+          this.iframe.style.height = `${height}px`;
+        }
+      });
 
-document.addEventListener("DOMContentLoaded", function () {
-  // 全てのカレンダーリンクにクリックイベントを追加
-  const dayLinks = document.querySelectorAll(".top-calendar-grid .top-day");
-  dayLinks.forEach(function (link) {
-    link.addEventListener("click", function (event) {
-      event.preventDefault();
-      const day = this.getAttribute("data-day");
-      loadDailyContent(day);
-      MicroModal.close("calendar-modal");
+      const body = this.iframe.contentDocument.body;
+      if (body) {
+        this.resizeObserver.observe(body);
+      }
+    }
+  }
+
+  setupMessageListener() {
+    window.addEventListener("message", (event) => {
+      if (event.source !== this.iframe.contentWindow) return;
+
+      const { type, height } = event.data;
+      if (type === "resize") {
+        this.iframe.style.height = `${height}px`;
+      }
     });
+  }
+
+  cleanup() {
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+    }
+  }
+}
+
+// カレンダーグリッドの生成
+function generateCalendarGrid() {
+  const gridContainer = document.querySelector(".top-calendar-grid");
+  gridContainer.innerHTML = ""; // Clear existing content
+
+  for (let i = 1; i <= 24; i++) {
+    const dayLink = document.createElement("a");
+    dayLink.href = "#";
+    dayLink.className = "top-day";
+    dayLink.setAttribute("data-day", i);
+    dayLink.textContent = i;
+
+    // 現在の日付が12月で、この日付がまだ来ていない場合はdisabled
+    const today = new Date();
+    if (today.getMonth() === 11 && today.getDate() < i) {
+      dayLink.style.opacity = "0.5";
+      dayLink.style.pointerEvents = "none";
+    }
+
+    gridContainer.appendChild(dayLink);
+  }
+}
+
+// コンテンツ読み込み関数
+function loadDailyContent(day) {
+  const contentWrapper = document.getElementById("daily-content");
+  contentWrapper.innerHTML = "";
+
+  // 古いiframeManagerのクリーンアップ
+  if (window.currentIframeManager) {
+    window.currentIframeManager.cleanup();
+  }
+
+  // iframeコンテナの作成
+  const container = document.createElement("div");
+  container.className = "iframe-container";
+
+  // ローディング表示
+  const loading = document.createElement("div");
+  loading.className = "loading";
+  loading.textContent = "読み込み中...";
+  container.appendChild(loading);
+
+  // iframe作成
+  const iframe = document.createElement("iframe");
+  iframe.style.width = "100%";
+  iframe.style.border = "none";
+  iframe.style.opacity = "0";
+  iframe.style.transition = "opacity 0.3s";
+  iframe.title = `Day ${day} content`;
+
+  // セキュリティ設定
+  iframe.sandbox = "allow-scripts allow-same-origin allow-popups";
+
+  // iframe読み込み完了時の処理
+  iframe.onload = () => {
+    loading.remove();
+    iframe.style.opacity = "1";
+    window.currentIframeManager = new IframeManager(iframe);
+  };
+
+  // エラー処理
+  iframe.onerror = () => {
+    container.innerHTML = `
+      <div class="error-message">
+        <p>コンテンツの読み込みに失敗しました。</p>
+        <button onclick="loadDailyContent(${day})">再試行</button>
+      </div>
+    `;
+  };
+
+  iframe.src = `day${day}/index.html`;
+  container.appendChild(iframe);
+  contentWrapper.appendChild(container);
+}
+
+// 初期化処理
+document.addEventListener("DOMContentLoaded", function () {
+  // MicroModalの初期化
+  MicroModal.init({
+    awaitCloseAnimation: true,
+    awaitOpenAnimation: true,
+    disableScroll: true,
   });
 
-  // 当日の日付を取得
+  // カレンダーグリッドの生成
+  generateCalendarGrid();
+
+  // クリックイベントの設定
+  document
+    .querySelector(".top-calendar-grid")
+    .addEventListener("click", function (event) {
+      if (event.target.classList.contains("top-day")) {
+        event.preventDefault();
+        const day = event.target.getAttribute("data-day");
+        loadDailyContent(day);
+        MicroModal.close("calendar-modal");
+      }
+    });
+
+  // 現在の日付が12月1日〜24日の場合、該当コンテンツを表示
   const today = new Date();
   const currentDay = today.getDate();
-
-  // 12月1日から24日までの場合のみ当日コンテンツを表示
   if (today.getMonth() === 11 && currentDay >= 1 && currentDay <= 24) {
     loadDailyContent(currentDay);
   } else {
-    // それ以外の場合はメッセージを表示
     document.getElementById("daily-content").innerHTML =
-      "<p>コンテンツは12月1日から公開されます。</p>";
+      '<p class="loading">コンテンツは12月1日から公開されます。</p>';
   }
+});
 
-  // コンテンツを読み込む関数
-  function loadDailyContent(day) {
-    const contentWrapper = document.getElementById("daily-content");
-
-    // ローディング表示
-    contentWrapper.innerHTML = "<p>読み込み中...</p>";
-
-    // まず既存のスタイルシートとスクリプトを削除
-    removeOldResources();
-
-    // 日付ごとのスタイルシートを追加
-    loadStylesheet(`day${day}/style.css`);
-
-    // コンテンツの読み込み
-    fetch(`day${day}/index.html`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("コンテンツが見つかりません");
-        }
-        return response.text();
-      })
-      .then((data) => {
-        // コンテンツを表示
-        contentWrapper.innerHTML = data;
-
-        // 日付ごとのJavaScriptを読み込む（存在する場合）
-        loadScript(`day${day}/script.js`).catch((err) => {
-          console.log("Script not found for this day, continuing without JS");
-        });
-      })
-      .catch((error) => {
-        contentWrapper.innerHTML = `<p>エラー: ${error.message}</p>`;
-        console.error("Error loading content:", error);
-      });
-  }
-
-  // 古いリソースを削除する関数
-  function removeOldResources() {
-    // 動的に追加されたスタイルシートを削除
-    document
-      .querySelectorAll("link[data-dynamic]")
-      .forEach((link) => link.remove());
-    // 動的に追加されたスクリプトを削除
-    document
-      .querySelectorAll("script[data-dynamic]")
-      .forEach((script) => script.remove());
-  }
-
-  // スタイルシートを読み込む関数
-  function loadStylesheet(href) {
-    const link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.href = href;
-    link.setAttribute("data-dynamic", "true");
-    document.head.appendChild(link);
-
-    // スタイルシートの読み込み状態を監視
-    return new Promise((resolve, reject) => {
-      link.onload = resolve;
-      link.onerror = () => {
-        console.error(`Failed to load stylesheet: ${href}`);
-        reject();
-      };
-    });
-  }
-
-  // スクリプトを読み込む関数
-  function loadScript(src) {
-    return new Promise((resolve, reject) => {
-      const script = document.createElement("script");
-      script.src = src;
-      script.setAttribute("data-dynamic", "true");
-      script.onload = resolve;
-      script.onerror = reject;
-      document.body.appendChild(script);
-    });
+// クリーンアップ
+window.addEventListener("beforeunload", () => {
+  if (window.currentIframeManager) {
+    window.currentIframeManager.cleanup();
   }
 });

@@ -10,7 +10,7 @@ function init() {
 
   // サイズ指定 (画面いっぱい)
   renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setSize(window.innerWidth, 300);
   renderer.sortObjects = true;
   renderer.physicallyCorrectLights = true;
   renderer.outputEncoding = THREE.sRGBEncoding;
@@ -173,7 +173,7 @@ function init() {
 
   window.addEventListener("resize", onWindowResize);
   function onWindowResize() {
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(1200, 300);
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
   }
