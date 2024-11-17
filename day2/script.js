@@ -8,7 +8,6 @@ function init() {
     canvas: canvasElement,
   });
 
-  // サイズ指定 (画面いっぱい)
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth, 300);
   renderer.sortObjects = true;
@@ -173,8 +172,8 @@ function init() {
 
   window.addEventListener("resize", onWindowResize);
   function onWindowResize() {
-    renderer.setSize(1200, 300);
-    camera.aspect = window.innerWidth / window.innerHeight;
+    renderer.setSize(window.innerWidth, 300); // ウィンドウ幅に基づく
+    camera.aspect = window.innerWidth / window.innerHeight; // アスペクト比も更新
     camera.updateProjectionMatrix();
   }
 }

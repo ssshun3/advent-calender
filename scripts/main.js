@@ -1,8 +1,3 @@
-MicroModal.init({
-  awaitCloseAnimation: true,
-  awaitOpenAnimation: true,
-  disableScroll: true,
-});
 class IframeManager {
   constructor(iframe) {
     this.iframe = iframe;
