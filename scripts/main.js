@@ -8,7 +8,6 @@ class IframeManager {
     if (this.iframe.contentDocument) {
       this.resizeObserver = new ResizeObserver((entries) => {
         for (const entry of entries) {
-          // スクロール高さを取得して設定
           const body = this.iframe.contentDocument.body;
           const html = this.iframe.contentDocument.documentElement;
           const height = Math.max(
@@ -18,7 +17,8 @@ class IframeManager {
             html.scrollHeight,
             html.offsetHeight
           );
-          this.iframe.style.height = `${height}px`;
+          // min-heightを500pxに設定
+          this.iframe.style.height = `${Math.max(height, 500)}px`;
         }
       });
 
@@ -35,7 +35,7 @@ class IframeManager {
 
       const { type, height } = event.data;
       if (type === "resize") {
-        this.iframe.style.height = `${height}px`;
+        this.iframe.style.height = `${Math.max(height, 500)}px`; // min-heightを適用
       }
     });
   }

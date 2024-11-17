@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 3 - Holiday Card</title>
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+        font-family: Arial, sans-serif;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 2rem;
+        text-align: center;
+        color: white;
+        max-width: 80%;
+        width: 400px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        position: relative;
+        z-index: 1;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      h1 {
+        margin: 0 0 1rem 0;
+        font-size: 2rem;
+        color: #f0f9ff;
+      }
+
+      p {
+        margin: 0 0 1.5rem 0;
+        line-height: 1.6;
+        color: #e0f2fe;
+      }
+
+      .snowflake {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: white;
+        border-radius: 50%;
+        pointer-events: none;
+        animation-name: snowfall;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        opacity: 0.6;
+      }
+
+      @keyframes snowfall {
+        0% {
+          transform: translateY(-100vh);
+        }
+        100% {
+          transform: translateY(100vh);
+        }
+      }
+
+      .date {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: #f0f9ff;
+        color: #1e3a8a;
+        padding: 0.5rem 1rem;
+        border-radius: 999px;
+        font-weight: bold;
+      }
+
+      .decoration {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        opacity: 0.1;
+        background: radial-gradient(
+            circle at 20% 20%,
+            white 1px,
+            transparent 1px
+          ),
+          radial-gradient(circle at 80% 40%, white 1px, transparent 1px),
+          radial-gradient(circle at 40% 60%, white 1px, transparent 1px),
+          radial-gradient(circle at 70% 80%, white 1px, transparent 1px);
+        background-size: 100% 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="date">Day 3</div>
+    <div class="card">
+      <h1>🎄 Holiday Greetings</h1>
+      <p>
+        冬の訪れとともに、静かに降り積もる雪のように、<br />穏やかな幸せが皆様の心に届きますように。
+      </p>
+      <p>
+        この特別な季節に、感謝の気持ちを込めて。<br />心温まる素敵な時間をお過ごしください。
+      </p>
+    </div>
+    <div class="decoration"></div>
+
+    <script>
+      function createSnowflake() {
+        const snowflake = document.createElement("div");
+        snowflake.className = "snowflake";
+
+        const startPositionLeft = Math.random() * window.innerWidth;
+        const animationDuration = Math.random() * 3 + 2; // 2-5秒
+        const size = Math.random() * 6 + 4; // 4-10ピクセル
+
+        snowflake.style.left = startPositionLeft + "px";
+        snowflake.style.animationDuration = animationDuration + "s";
+        snowflake.style.width = size + "px";
+        snowflake.style.height = size + "px";
+        snowflake.style.position = "fixed"; // スクロールに影響しないように固定
+        snowflake.style.top = "-10px"; // 画面外から始まるよう調整
+
+        document.body.appendChild(snowflake);
+
+        snowflake.addEventListener("animationend", () => {
+          snowflake.remove();
+        });
+      }
+
+      // 定期的に雪を生成
+      setInterval(createSnowflake, 200);
+
+      // 初期雪を生成
+      for (let i = 0; i < 20; i++) {
+        setTimeout(createSnowflake, Math.random() * 2000);
+      }
+    </script>
+  </body>
+</html>
